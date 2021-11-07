@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInGameInterface : MonoBehaviour
+public class MediumComputer : MonoBehaviour
 {
+    /*
+    The player class will handle everything that has to do with the computer - health and connecting the Shooting and 
+    Kinematics classes.
+    */
+
+    private int health = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,9 +22,4 @@ public class PlayerInGameInterface : MonoBehaviour
     {
         
     }
-
-    // Score (Top left)
-    // Input Angle (Top left above player ship)
-    // Input Velocity (Top left above player ship next to input angle)
-    // Distance From Computer Ship ()
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
@@ -24,7 +26,7 @@ public class InGameMenu : MonoBehaviour{
     }
 
     public void LoadVolume(){
-        volume = PlayerPrefs.GetFloat("Volume");
+        float volume = PlayerPrefs.GetFloat("Volume");
         SetVolume(volume);
     }
 
