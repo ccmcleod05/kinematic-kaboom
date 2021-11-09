@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+using System.Collections;
+
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
@@ -12,22 +14,24 @@ public class InGameMenu : MonoBehaviour{
     public static bool GameIsPaused = false;
     public GameObject pauseMenu;
     public AudioMixer audioMixer;
-    
 
     /* --- Volume --- */
 
-    public void SetVolume(float volume){
-        audioMixer.SetFloat("Volume", volume);
-        SaveVolume(volume);
+    public void SetVolume(float Volume){
+        /*if(PlayerPrefs.GetFloat("Volume") != null){
+            LoadVolume();
+        }*/
+        audioMixer.SetFloat("Volume", Volume);
+        SaveVolume(Volume);
     }
 
-    public void SaveVolume(float volume){
-        PlayerPrefs.SetFloat("Volume", volume);
+    public void SaveVolume(float Volume){
+        PlayerPrefs.SetFloat("Volume", Volume);
     }
 
     public void LoadVolume(){
-        float volume = PlayerPrefs.GetFloat("Volume");
-        SetVolume(volume);
+        float Volume = PlayerPrefs.GetFloat("Volume");
+        SetVolume(Volume);
     }
 
 

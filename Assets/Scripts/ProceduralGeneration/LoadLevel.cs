@@ -17,9 +17,7 @@ public class LoadLevel : MonoBehaviour
     public GameObject computerBattleship;
 
     public GameObject player;
-    public GameObject playerCannon;
     public GameObject computer;
-    public GameObject computerCannon;
 
     public GameObject destroyer;
     public GameObject battleship;
@@ -38,7 +36,6 @@ public class LoadLevel : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        
     }
 
     void IncrementScore(){

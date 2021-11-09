@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+using UnityEngine.Audio;
+
 public class ShootingScript : MonoBehaviour
 {
     public float initialVelocity;
@@ -11,6 +13,8 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] private GameObject bullet;
 
     public GameObject firepoint;
+
+    public AudioSource artilleryShotAudio;
 
     Quaternion currentRot;
 
@@ -22,6 +26,8 @@ public class ShootingScript : MonoBehaviour
 
     public void Shoot()
     {
+        artilleryShotAudio.Play();
+
         GameObject projectileClone = Instantiate(bullet, firepoint.transform.position, firepoint.transform.rotation);
 
         initialVelocity = initialVelocity / 10;
@@ -40,5 +46,6 @@ public class ShootingScript : MonoBehaviour
         Vector2 fireDir = new Vector2(xSpeed, ySpeed);
         Rigidbody2D proj = projectileClone.GetComponent<Rigidbody2D>();
         proj.AddForce(fireDir, ForceMode2D.Impulse);
+
     }
 }

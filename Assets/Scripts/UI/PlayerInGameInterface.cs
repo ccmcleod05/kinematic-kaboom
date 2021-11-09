@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Threading.Tasks;
 
 public class PlayerInGameInterface : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class PlayerInGameInterface : MonoBehaviour
         angleInputText.GetComponent<InputField>().interactable = false;
     }
 
-    public void ShipMissed(){
+    public void Enable(){ // When shipmissed and cooldown over
         enterButton.GetComponent<Button>().interactable = true;
         initialVelocityInputText.GetComponent<InputField>().interactable = true;
         angleInputText.GetComponent<InputField>().interactable = true;
@@ -58,17 +59,22 @@ public class PlayerInGameInterface : MonoBehaviour
     }
 
     public void AssignInputs(){
-        if(float.TryParse(initialVelocityInputField.GetComponent<Text>().text, out float n)){ // Check if init vel user input is numeric
-            float initVel = float.Parse(initialVelocityInputField.GetComponent<Text>().text);
-            playerBattleship.GetComponent<ShootingScript>().initialVelocity = initVel;
+        if(initialVelocityInputField.GetComponent<Text>().text != null || angleInputField.GetComponent<Text>().text != null){
+            if(float.TryParse(initialVelocityInputField.GetComponent<Text>().text, out float n)){ // Check if init vel user input is numeric
+                if(float.Parse(initialVelocityInputField.GetComponent<Text>().text) < 131 && float.Parse(initialVelocityInputField.GetComponent<Text>().text) > 0){
+                    float initVel = float.Parse(initialVelocityInputField.GetComponent<Text>().text);
+                    playerBattleship.GetComponent<ShootingScript>().initialVelocity = initVel;
 
-            if(float.TryParse(angleInputField.GetComponent<Text>().text, out float i)){ // Check if angle user input is numeric
-                if(float.Parse(angleInputField.GetComponent<Text>().text) < 91 && float.Parse(angleInputField.GetComponent<Text>().text) > -1){ // Check if angle is positive and complementary
-                    float angle = float.Parse(angleInputField.GetComponent<Text>().text);
-                    playerBattleship.GetComponent<ShootingScript>().launchAngle = angle;
+                    if(float.TryParse(angleInputField.GetComponent<Text>().text, out float i)){ // Check if angle user input is numeric
+                        if(float.Parse(angleInputField.GetComponent<Text>().text) < 91 && float.Parse(angleInputField.GetComponent<Text>().text) > -1){ // Check if angle is positive and complementary
+                            float angle = float.Parse(angleInputField.GetComponent<Text>().text);
+                            playerBattleship.GetComponent<ShootingScript>().launchAngle = angle;
 
-                    playerBattleship.GetComponent<ShootingScript>().Shoot();
-                    //Disable();
+                            playerBattleship.GetComponent<ShootingScript>().Shoot();
+                            Disable();
+                            //Task.Delay(new TimeSpan(0, 0, 5)).ContinueWith(o => { Enable(); });
+                        }
+                    }
                 }
             }
         }
