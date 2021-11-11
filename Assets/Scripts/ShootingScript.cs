@@ -20,8 +20,8 @@ public class ShootingScript : MonoBehaviour
 
     void Update()
     {
-        //currentRot.eulerAngles = new Vector3(0, 0, launchAngle);
-        //transform.rotation = currentRot;
+        currentRot.eulerAngles = new Vector3(0, 0, launchAngle);
+        transform.rotation = currentRot;
     }
 
     public void Shoot()

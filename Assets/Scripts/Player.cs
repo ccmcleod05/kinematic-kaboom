@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     private int health = 100;
     private int highScore;
-    private int currentScore;
+    public int currentScore;
 
     // Start is called before the first frame update
     void Start(){
@@ -23,7 +23,12 @@ public class Player : MonoBehaviour
         SavePlayer();
     }
 
-    void TakeDamage(int damage, GameObject player){
+    public void IncrementScore()
+    {
+        currentScore++;
+    }
+    
+    void TakeDamage(int damage){
         health -= damage;
         if(health <= 0)
         {
@@ -34,8 +39,10 @@ public class Player : MonoBehaviour
 
     // Saves highest score.
     public void SavePlayer(){
-        if(currentScore > highScore)
+        currentScore = PlayerPrefs.GetInt("CurrentScore");
+        if (currentScore >= highScore)
             PlayerPrefs.SetInt("HighScore", currentScore);
+        PlayerPrefs.SetInt("CurrentScore", currentScore);
     }
 
     // Loads high score.
