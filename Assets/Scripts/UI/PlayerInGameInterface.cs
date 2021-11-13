@@ -27,14 +27,44 @@ public class PlayerInGameInterface : MonoBehaviour
     void Start()
     {
         playerCannon = gameGenerator.GetComponent<LoadLevel>().player.transform.GetChild(0).gameObject;
-        if(PlayerPrefs.GetInt("HighScore") == PlayerPrefs.GetInt("CurrentScore")){
-            PlayerPrefs.SetInt("HighScore", LoadLevel.score);
-            PlayerPrefs.SetInt("CurrentScore", LoadLevel.score);
+        /*if(PlayerPrefs.GetInt("HighScore") == PlayerPrefs.GetInt("CurrentScore")){
+            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("CurrentScore"));
+        }*/
+        if (MainMenu.difficulty == "easy"){
+            highScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("EasyHighScore"));
         }
-        PlayerPrefs.SetInt("CurrentScore", LoadLevel.score);
-        highScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("HighScore"));
+        else if (MainMenu.difficulty == "med"){
+            highScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("IntermediateHighScore"));
+        }
+        else{
+            highScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("HardHighScore"));
+        }
         currentScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("CurrentScore"));
         DisplayDistance();
+    }
+
+    void Update(){
+        /*if (MainMenu.difficulty == "easy"){
+            highScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("EasyHighScore"));
+        }
+        else if (MainMenu.difficulty == "med"){
+            highScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("IntermediateHighScore"));
+        }
+        else{
+            highScoreDisplayTextField.GetComponent<Text>().text = Convert.ToString(PlayerPrefs.GetInt("HardHighScore"));
+        }*/
+        /*if (MainMenu.difficulty == "easy"){
+            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("EasyHighScore"));
+        }
+        else if (MainMenu.difficulty == "med"){
+            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("IntermediateHighScore"));
+        }
+        else{
+            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("HardHighScore"));
+        }*/
+        /*if(PlayerPrefs.GetInt("HighScore") == PlayerPrefs.GetInt("CurrentScore")){
+            PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("CurrentScore"));
+        }*/
     }
 
     public void EnterInput(){
@@ -73,7 +103,7 @@ public class PlayerInGameInterface : MonoBehaviour
 
                             playerCannon.GetComponent<ShootingScript>().Shoot();
                             Disable();
-                            //await Task.Delay(15000);
+                            //await Task.Delay(10000);
                             Enable();
                         }
                     }

@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Pacific.unity
+    guid: 485c47e8c2c7f5e4ab9f1ce12505bddb
+  - enabled: 1
+    path: Assets/Scenes/Meditteranean.unity
+    guid: 4395fa5d7309a114bbcf0d657a967f40
+  - enabled: 1
+    path: Assets/Scenes/Arctic.unity
+    guid: 376cc5619fdf92642b57de5e8b60fc38
   m_configObjects: {}

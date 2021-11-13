@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Threading.Tasks;
+using System.Threading;
+
 using UnityEngine.Audio;
+
+using UnityEngine.SceneManagement;
 
 public class ProjectileScript : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     [SerializeField] private GameObject splashSprite;
     // Start is called before the first frame update
+    [SerializeField] private GameObject boomSprite;
 
     public AudioSource splashAudio; // Water Splash
-    public AudioSource inKillZoneAudio; // Explosion
-    public AudioSource hitComputer; // Bullet hit metal
+    public AudioSource explosionAudio; // Explosion
+
+    public GameObject playerBattleship;
 
     void Awake()
     {
@@ -27,26 +34,58 @@ public class ProjectileScript : MonoBehaviour
         transform.rotation = rot;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    async void OnTriggerEnter2D(Collider2D other)
     {
        
         if(other.tag == "Computer")
         {
-            Destroy(other.gameObject, 0.2f);
+            GameObject explosion = Instantiate(boomSprite, transform.position, Quaternion.identity);
+            explosionAudio.Play();
+
+            await Task.Delay(1000);
+
             PlayerPrefs.SetInt("CurrentScore", PlayerPrefs.GetInt("CurrentScore") + 1);
-            Destroy(this);
+
+            if (MainMenu.difficulty == "easy"){
+                if(PlayerPrefs.GetInt("EasyHighScore") <= PlayerPrefs.GetInt("CurrentScore")){
+                    PlayerPrefs.SetInt("EasyHighScore", PlayerPrefs.GetInt("CurrentScore"));
+                }
+            }
+            else if (MainMenu.difficulty == "med"){
+                if(PlayerPrefs.GetInt("IntermediateHighScore") <= PlayerPrefs.GetInt("CurrentScore")){
+                    PlayerPrefs.SetInt("IntermediateHighScore", PlayerPrefs.GetInt("CurrentScore"));
+                }
+            }
+            else{
+                if(PlayerPrefs.GetInt("HardHighScore") <= PlayerPrefs.GetInt("CurrentScore")){
+                    PlayerPrefs.SetInt("HardHighScore", PlayerPrefs.GetInt("CurrentScore"));
+                }
+            }
+
+            float integer = UnityEngine.Random.Range(0, 2);
+            if(integer == 0){
+                SceneManager.LoadScene("Pacific");
+            }
+            else if(integer == 1){
+                SceneManager.LoadScene("Meditteranean");
+            }
+            else{
+                SceneManager.LoadScene("Arctic");
+            }
+
         }
         
-        if(other.tag == "Killzone")
+        /*if(other.tag == "Killzone")
         {
-            Destroy(this);
-        }
+            Destroy(this); // Destroys the computer only
+        }*/
 
         if(other.tag == "Water")
         {
             GameObject splash = Instantiate(splashSprite, transform.position, Quaternion.identity);
-            Destroy(splash, 0.15f);
-            Destroy(this);
+            splashAudio.Play();
+            Destroy(splash, 1f);
+            Destroy(gameObject);
         }
     }
 

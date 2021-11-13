@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Threading.Tasks;
+using System.Threading;
+
 using UnityEngine.Audio;
 
 public class BulletComputer : MonoBehaviour
@@ -9,11 +12,13 @@ public class BulletComputer : MonoBehaviour
     private Rigidbody2D rb2d;
     [SerializeField] private GameObject splashSprite;
     // Start is called before the first frame update
+    [SerializeField] private GameObject boomSprite;
 
     public AudioSource splashAudio; // Water Splash
-    public AudioSource inKillZoneAudio; // Explosion
-    public AudioSource hitComputer; // Bullet hit metal
-    
+    public AudioSource explosionAudio; // Explosion
+
+    public GameObject gameOverMenu;
+
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -27,26 +32,32 @@ public class BulletComputer : MonoBehaviour
         transform.rotation = rot;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    async void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            Destroy(other.gameObject, 0.2f);
-            //Do game over
-            Destroy(this);
+            GameObject explosion = Instantiate(boomSprite, transform.position, Quaternion.identity);
+            explosionAudio.Play();
+            Destroy(explosion, 1f);
+
+            await Task.Delay(1000);
+
+            Destroy(other.gameObject, 1f);
+            gameOverMenu.SetActive(true);
         }
 
 
-        if (other.tag == "Killzone")
+        /*if (other.tag == "Killzone")
         {
             Destroy(this);
-        }
+        }*/
 
         if (other.tag == "Water")
         {
             GameObject splash = Instantiate(splashSprite, transform.position, Quaternion.identity);
-            Destroy(splash, 0.15f);
-            Destroy(this);
+            splashAudio.Play();
+            Destroy(splash, 1f);
+            Destroy(gameObject);
         }
     }
 
