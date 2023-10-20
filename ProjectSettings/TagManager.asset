@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Water
+  - Computer
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Computer
+  - Water (Platform)
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: UpperBackground
+    uniqueID: 3158723
+    locked: 0
+  - name: LowerBackground
+    uniqueID: 1029379937
+    locked: 0
+  - name: Midground
+    uniqueID: 2124324493
+    locked: 0
+  - name: Foreground2
+    uniqueID: 593015823
+    locked: 0
+  - name: Foreground
+    uniqueID: 3310107057
+    locked: 0
