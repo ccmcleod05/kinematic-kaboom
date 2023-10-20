@@ -9,5 +9,8 @@ Aiden Miller (Developer)<br>
 Michael Barela (Graphic Designer)<br>
 Dylan Roberts (Composer)<br>
 
+### Completion Date
+Fall 2021
+
 ### Team Liquid Hackathon
 This game was a submission to the [2021 Team Liquid 2.0 Game Hackathon](https://devpost.com/software/kinematic-kaboom)
